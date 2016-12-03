@@ -14,7 +14,7 @@ public class Solution2 {
 	public static String getBathroomCode(List<String> instructions) {
 		KeyPad keyPad = new KeyPad();
 		return instructions.stream()
-			.map((instruction) -> getNumber(keyPad, instruction) + "")
+			.map(instruction -> keyPad.executeInstruction(instruction) + "")
 			.collect(Collectors.joining(""));
 	}
 
@@ -38,6 +38,11 @@ public class Solution2 {
 			return x >= 0 && x <= 4 && y >= 0 && y <= 4 && KEYS[x][y] != ' ';
 		}
 
+		public char executeInstruction(String instruction) {
+			instruction.chars().mapToObj(c -> (char) c).forEach(this::move);
+			return this.getCurrentNumber();
+		}
+
 		public void move(char direction) {
 			if (direction == 'U') {
 				if (validPosition(x - 1, y)) {
@@ -57,12 +62,5 @@ public class Solution2 {
 				}
 			}
 		}
-	}
-
-	private static char getNumber(KeyPad keyPad, String instruction) {
-		for (char direction : instruction.toCharArray()) {
-			keyPad.move(direction);
-		}
-		return keyPad.getCurrentNumber();
 	}
 }
