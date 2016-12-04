@@ -77,52 +77,31 @@ public class Solution2 {
 
 			facing = facing.getNextDirection(direction);
 
-			// Walk in new direction.
+			int dx = 0, dy = 0;
+
 			switch (facing) {
 				case NORTH:
-					while (steps > 0) {
-						y--;
-						Coordinate coordinate = new Coordinate(x, y);
-						if (visitedCoordinates.contains(coordinate)) {
-							return Math.abs(x) + Math.abs(y);
-						}
-						visitedCoordinates.add(coordinate);
-						steps--;
-					}
+					dy = -1;
 					break;
 				case EAST:
-					while (steps > 0) {
-						x++;
-						Coordinate coordinate = new Coordinate(x, y);
-						if (visitedCoordinates.contains(coordinate)) {
-							return Math.abs(x) + Math.abs(y);
-						}
-						visitedCoordinates.add(coordinate);
-						steps--;
-					}
+					dx = 1;
 					break;
 				case SOUTH:
-					while (steps > 0) {
-						y++;
-						Coordinate coordinate = new Coordinate(x, y);
-						if (visitedCoordinates.contains(coordinate)) {
-							return Math.abs(x) + Math.abs(y);
-						}
-						visitedCoordinates.add(coordinate);
-						steps--;
-					}
+					dy = 1;
 					break;
 				case WEST:
-					while (steps > 0) {
-						x--;
-						Coordinate coordinate = new Coordinate(x, y);
-						if (visitedCoordinates.contains(coordinate)) {
-							return Math.abs(x) + Math.abs(y);
-						}
-						visitedCoordinates.add(coordinate);
-						steps--;
-					}
+					dx = -1;
 					break;
+			}
+
+			for (int stepsTaken = 0; stepsTaken < steps; stepsTaken++) {
+				x += dx;
+				y += dy;
+				Coordinate coordinate = new Coordinate(x, y);
+				if (visitedCoordinates.contains(coordinate)) {
+					return Math.abs(x) + Math.abs(y);
+				}
+				visitedCoordinates.add(coordinate);
 			}
 		}
 
