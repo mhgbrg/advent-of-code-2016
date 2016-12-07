@@ -13,7 +13,7 @@ mostFrequentChar :: String -> Char
 mostFrequentChar str = c
   where counts = charCounts str
         (c, _) = maximumBy compareCounts counts
-        compareCounts (_, n1) (_, n2) = n1 `compare` n2
+        compareCounts (_, n1) (_, n2) = n2 `compare` n1
 
 charCounts :: String -> [(Char, Int)]
 charCounts str = map (\c -> (c, countOccurrences c str)) uniqueChars
